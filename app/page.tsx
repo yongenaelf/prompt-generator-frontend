@@ -18,7 +18,7 @@ export default function Home() {
   const [textarea, setTextarea] = useState("");
   const [format, setFormat] = useLocalStorage(
     "format",
-    "A simple pixel art image of a cat, %Eyes%, with %Clothes%, with %Hat%, with %Mouth%, with %Necklace%, accompanied by %Pet%"
+    "A simple 128x128 grid pixel art image of a Bengal cat in a full-body sitting pose, %Eyes%, with %Clothes%, with %Hat%, with %Mouth%, with %Necklace%, accompanied by %Pet%"
   );
   const [data, setData] = useState<Data>({});
   const [ids, setIds] = useLocalStorage("ids", {});
