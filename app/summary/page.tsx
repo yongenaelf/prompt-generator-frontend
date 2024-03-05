@@ -1,5 +1,6 @@
 import Image from "next/image";
 import combined from "./combined.json";
+import "./page.css";
 
 export default function Summary() {
   const all = combined.reduce((acc, cur) => ({ ...acc, ...cur }), {});
