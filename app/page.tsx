@@ -14,15 +14,14 @@ interface Data {
 }
 
 export default function Home() {
-  const [numGen, setNumGen] = useState(10);
+  const [numGen, setNumGen] = useState(2);
   const [textarea, setTextarea] = useState("");
-  const [format, setFormat] = useState("");
-  const [data, setData] = useState<Data>({});
-  const [ids, setIds] = useLocalStorage(
-    "ids",
-    {},
-    { initializeWithValue: false }
+  const [format, setFormat] = useLocalStorage(
+    "format",
+    "A simple pixel art image of a cat, %Eyes%, with %Clothes%, with %Hat%, with %Mouth%, with %Necklace%, accompanied by %Pet%"
   );
+  const [data, setData] = useState<Data>({});
+  const [ids, setIds] = useLocalStorage("ids", {});
 
   useEffect(() => {
     async function getData() {
@@ -34,13 +33,11 @@ export default function Home() {
     getData().then((data) => {
       setData(data);
 
-      const keys = Object.keys(data);
-      setFormat(
-        `A simple pixel art image of a cat, ${keys.reduce(
-          (acc, cur, idx) => acc + `${idx !== 0 ? ", " : ""}wears %${cur}%`,
-          ""
-        )}`
-      );
+      if (!format) {
+        setFormat(
+          "A simple pixel art image of a cat, wearing %Clothes%, %Eyes%, wearing %Hat%, having %Mouth%, wearing %Necklace%, accompanied by %Pet%"
+        );
+      }
     });
   }, []);
 

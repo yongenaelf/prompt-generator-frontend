@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { revalidateTag } from "next/cache";
 import Link from "next/link";
+import "./page.css";
 
 async function Images({ id }: { id: string }) {
   const res = await fetch(
@@ -23,19 +24,25 @@ async function Images({ id }: { id: string }) {
 
   if (!images) {
     await revalidateTag("get-batch-result" + id);
-    return <p>Generation in progress. Refresh the page later.</p>;
+    return (
+      <p>Generation in progress (1 min per prompt). Refresh the page later.</p>
+    );
   }
 
   return (
     <>
-      {Object.keys(images).map((key) => (
-        <div key={key}>
-          <p>{key}</p>
-          {images[key].map((image) => (
-            <Image key={image} src={image} width={270} height={270} alt={key} />
-          ))}
-        </div>
-      ))}
+      <table>
+        {Object.keys(images).map((key) => (
+          <tr key={key}>
+            <td>{key}</td>
+            {images[key].map((image) => (
+              <td key={image}>
+                <Image src={image} width={270} height={270} alt={key} />
+              </td>
+            ))}
+          </tr>
+        ))}
+      </table>
     </>
   );
 }
