@@ -95,7 +95,11 @@ export default function Home() {
           <br />
           <button onClick={generate}>Generate</button>
           <br />
-          <textarea rows={30} value={textarea} />
+          <textarea
+            rows={30}
+            value={textarea}
+            onChange={(e) => setTextarea(e.target.value)}
+          />
           <br />
           <button
             onClick={() => {
